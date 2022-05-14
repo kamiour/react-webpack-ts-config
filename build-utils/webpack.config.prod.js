@@ -10,24 +10,13 @@ module.exports = () => ({
     filename: '[name].[hash].bundle.prod.js',
     chunkFilename: '[name].[chunkhash].chunk.prod.js',
   },
-  devServer: {
-    static: path.join(__dirname, '../build'),
-    port: 8000,
-  },
   performance: {
     hints: 'warning',
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-      }),
-      new OptimizeCSSAssetsPlugin({}),
-    ],
+    minimizer: [new TerserWebpackPlugin(), new OptimizeCSSAssetsPlugin({})],
   },
   module: {
     rules: [

@@ -2,21 +2,22 @@ const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-function getConfigName(env) {
-  return env === 'development' ? 'webpack.config.dev' : 'webpack.config.prod';
+function getConfigName(environment) {
+  return environment === 'development' ? 'webpack.config.dev' : 'webpack.config.prod';
 }
 
 const modeConfiguration = (env) => require(`./build-utils/${getConfigName(env)}`)(env);
 
-module.exports = ({ mode } = { mode: 'production' }) => {
-  console.log(`mode is: ${mode}`);
+module.exports = () => {
+  const env = process.env.NODE_ENV;
+  console.log(`mode is: ${env}`);
 
   return merge(
     {
-      mode,
-      entry: './src/index.jsx',
+      mode: env,
+      entry: './src/index.tsx',
       output: {
-        assetModuleFilename: 'images/[hash][ext][query]',
+        assetModuleFilename: 'images/[name][hash][ext][query]',
       },
       devServer: {
         compress: true,
@@ -26,18 +27,22 @@ module.exports = ({ mode } = { mode: 'production' }) => {
         rules: [
           {
             test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
             loader: 'babel-loader',
+            exclude: /node_modules/,
+          },
+          {
+            test: /\.(ts|tsx)?$/,
+            use: 'babel-loader',
+            exclude: /node_modules/,
           },
           {
             test: /\.(png|jpe?g|gif|svg|ico)$/,
-            exclude: /node_modules/,
-            use: ['url-loader', 'file-loader'],
+            type: 'asset/resource',
           },
         ],
       },
       resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
       plugins: [
         new HtmlWebpackPlugin({
@@ -46,6 +51,6 @@ module.exports = ({ mode } = { mode: 'production' }) => {
         new webpack.HotModuleReplacementPlugin(),
       ],
     },
-    modeConfiguration(mode)
+    modeConfiguration(env)
   );
 };
