@@ -1,5 +1,16 @@
+const path = require('path');
+
 module.exports = () => ({
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
+  output: {
+    path: path.resolve(__dirname, '../dev'),
+    filename: '[name].[hash].bundle.js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
+  },
+  devServer: {
+    static: path.join(__dirname, '../dev'),
+    port: 3030,
+  },
   module: {
     rules: [
       {

@@ -1,4 +1,3 @@
-const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -16,16 +15,12 @@ module.exports = ({ mode } = { mode: 'production' }) => {
     {
       mode,
       entry: './src/index.jsx',
-      devServer: {
-        hot: true,
-        open: true,
-        port: '3030',
-      },
       output: {
-        path: path.resolve(__dirname, './build'),
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].[chunkhash].js',
         assetModuleFilename: 'images/[hash][ext][query]',
+      },
+      devServer: {
+        compress: true,
+        open: true,
       },
       module: {
         rules: [

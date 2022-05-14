@@ -7,6 +7,8 @@
     "webpack": "webpack",
     "webpack-dev-server": "webpack-dev-server",
     "start:dev": "npm run webpack-dev-server -- --env mode=development",
+    "build:dev": "npm run webpack -- --env mode=development",
+    "start:prod": "npm run webpack-dev-server -- --env mode=production",
     "build:prod": "npm run webpack -- --env mode=production"
   },
   "author": "",
