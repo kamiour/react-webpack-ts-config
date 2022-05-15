@@ -1,6 +1,7 @@
-const path = require('path');
+import * as path from 'path';
+import { WebpackConfiguration } from 'webpack-dev-server';
 
-module.exports = () => ({
+const config: WebpackConfiguration = {
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dev'),
@@ -19,4 +20,6 @@ module.exports = () => ({
       },
     ],
   },
-});
+};
+
+export default config;

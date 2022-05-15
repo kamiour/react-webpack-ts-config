@@ -1,9 +1,10 @@
-const path = require('path');
+import * as path from 'path';
+import { Configuration } from 'webpack';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 
-module.exports = () => ({
+const config: Configuration = {
   devtool: 'nosources-source-map',
   output: {
     path: path.resolve(__dirname, '../build'),
@@ -32,4 +33,6 @@ module.exports = () => ({
       chunkFilename: '[id].[contenthash].css',
     }),
   ],
-});
+};
+
+export default config;
