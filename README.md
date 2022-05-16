@@ -1,3 +1,3 @@
 # Webpack configuration for React with TypeScript
 
-## Check webpack.config.ts
+## Check webpack.config.js
